@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stencil Forge</title>
+    <link rel="icon" href="https://i.postimg.cc/vm1Fjw5c/sf-high-resolution-logo-1.png"
+        type="image/icon type">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <div class="logo"><img src="https://i.postimg.cc/h4NJ3Kx7/Screenshot-2024-09-07-153306.png" alt=""></div>
+        <ul>
+            <li><a>Home</a></li>
+            <li><a>Services</a></li>
+            <li><a>Contact</a></li>
+            <li><a>About</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="Welcome">Welcome</div>
+        <div class="To">To</div>
+        <div class="StencilForge">StencilForge</div>
+        <div class="quote">~ Each figure is the beauty of Mathematical equation...</div>
+    </div>
+
+    <div class="Stencils">
+        <div class="heading">What are Stencils?</div>
+        <div class="content">
+            <p>Defined by Borders and Edges: Stencils are essentially pencil sketches that represent the sharp borders
+                or edges detected within an image. These edges are outlined using equations and compiled into vector
+                image formats.</p>
+            <p>Multilayered Design: Stencil sheets are typically made up of multiple layers, where each layer highlights
+                portions of the image with similar color codes. This allows for precise detailing when creating complex
+                designs.</p>
+            <p>Versatile and Practical: Flexible plastic or paper stencils can be used to transfer designs onto curved
+                surfaces. While there are many readymade stencils for different characters, custom laser-cut stencils
+                for intricate images, such as portraits, are not yet widely available.</p>
+        </div>
+    </div>
+
+    <svg viewBox="0 0 100 25" class="flat-waves">
+        <!-- <path fill="#783BFF" d="M0 30 V15 Q30 3 60 15 V30z"></path> -->
+        <path fill="rgb(203, 246, 234)" d="M0 30 V11 Q25 24 50 12 T100 8 V30z"></path>
+    </svg>
+
+    <div class="stencil-images">
+        <h2>Want to create stencils of real world images like this?</h2>
+        <p>Get the probable equations of their edges and curves</p>
+
+        <div class="image-grid">
+            <img src="https://i.postimg.cc/GhYR3CfY/eyebrow.png" alt="Stencil Image 1" >
+            <img src="https://i.postimg.cc/xjNDgQn7/plus-pupil.png" alt="Stencil Image 2" >
+            <img src="https://i.postimg.cc/59CTLmmW/plus-nose.png" alt="Stencil Image 3" >
+            <img src="https://i.postimg.cc/8Pg3HryJ/plus-lips.png" alt="Stencil Image 4" >
+            <img src="https://i.postimg.cc/mDMjzmWd/plus-facial-outline.png" alt="Stencil Image 5" >
+            <img src="https://i.postimg.cc/85Pks0vG/plus-ears.png" alt="Stencil Image 6" >
+            <img src="https://i.postimg.cc/QCvj4NyN/plus-glasses.png" alt="Stencil Image 7" >
+            <img src="https://i.postimg.cc/4ddZXhCN/complete-layer.png" alt="Stencil Image 8" >
+            <img src="https://i.postimg.cc/NF2cHqf3/wgl1.jpg" alt="Stencil Image 9" >
+        
+
+        </div>
+    </div>
+
+    <div class="Upload">
+        <h2>Create multilayered stencils of human portraits</h2>
+        <p>Get the sketch using Bezier curves and corresponding spline functions</p>
+        <input type="file" id="actual-btn" hidden name="file" required />
+        <label for="actual-btn">Select Your Image</label>
+        <button id="uploadButton">Upload</button>
+        <p id="responseMessage"></p>
+    </div>
+
+    <hr>
+
+    <div class="team-section">
+        <h2>Our Team</h2>
+        <div class="team-container">
+            <!-- Team Member 1 -->
+            <div class="team-member">
+                <img src="https://i.postimg.cc/yxYLMVc9/Aritra.jpg" alt="Team Member 1">
+                <h3>Aritra Biswas</h3>
+                <p>22AE10005</p>
+                <p>Role: Perception</p>
+            </div>
+            <!-- Team Member 2 -->
+            <div class="team-member">
+                <img src="https://i.postimg.cc/LXSCVksx/Abhishek.jpg" alt="Team Member 2">
+                <h3>Abhishek Lakhera</h3>
+                <p>22AE30002</p>
+                <p>Role: Web Developer</p>
+            </div>
+            <!-- Team Member 3 -->
+            <div class="team-member">
+                <img src="https://i.postimg.cc/dVT5PNkW/Roshan.jpg" alt="Team Member 3">
+                <h3>Roshan Bajaj</h3>
+                <p>22AE10033</p>
+                <p>Role: Perception</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="Contact">
+        <div class="contact-btn-container">
+            <a href="contact.html" target="_blank" class="contact-btn">Contact Us →</a>
+            <!-- Link to contact.html page -->
+        </div>
+    </div>
+
+    <script>
+        // Get the file input and upload button elements
+        const fileInput = document.getElementById('actual-btn');
+        const uploadButton = document.getElementById('uploadButton');
+        const responseMessage = document.getElementById('responseMessage');
+
+        // Upload button click event
+        uploadButton.onclick = async function (event) {
+            event.preventDefault(); // Prevent form submission
+            if (!fileInput.files.length) {
+                responseMessage.innerText = "Please select a file first.";
+                return; // Exit if no file is selected
+            }
+            let formData = new FormData();
+            formData.append("file", fileInput.files[0]); // Add file to FormData
+            let response = await fetch("/upload", {
+                method: "POST",
+                body: formData // Send FormData containing the file
+            });
+            let result = await response.json(); // Parse JSON response
+            responseMessage.innerText = result.message; // Display response message
+        };
+    </script>
+</body>
+
+</html>
